@@ -1,14 +1,16 @@
+import { type ComponentProps } from 'react';
+import { StyleSheet } from 'react-native';
+import WebView from 'react-native-webview';
 import makeWebshell, {
   HandleHTMLDimensionsFeature,
   useAutoheight,
 } from '@formidable-webview/webshell';
-import { type ComponentProps } from 'react';
-import { StyleSheet } from 'react-native';
-import WebView from 'react-native-webview';
 
 const Webshell = makeWebshell(WebView, new HandleHTMLDimensionsFeature());
-
 export type WebshellProps = ComponentProps<typeof Webshell>;
+const globalStyles = StyleSheet.create({
+  webview: { backgroundColor: 'transparent' },
+});
 
 function MinimalAutoheightWebView(webshellProps: WebshellProps) {
   const { autoheightWebshellProps } = useAutoheight({
@@ -17,7 +19,7 @@ function MinimalAutoheightWebView(webshellProps: WebshellProps) {
   return <Webshell {...autoheightWebshellProps} />;
 }
 
-const MathJax = ({
+const LatexRenderer = ({
   content,
   containerStyles,
   textStyles,
@@ -28,7 +30,7 @@ const MathJax = ({
   textStyles?: string;
   mathContainerStyles?: string;
 }) => {
-  const htmlSource = getSource(
+  const htmlSource = src(
     content,
     containerStyles || '',
     textStyles || '',
@@ -43,20 +45,15 @@ const MathJax = ({
   );
 };
 
-const globalStyles = StyleSheet.create({
-  webview: { backgroundColor: 'transparent' },
-});
-
-const getSource = (
+const src = (
   content: string,
   containerStyles: string,
   textStyles: string,
   mathContainerStyles: string
 ) => {
   const setStyles = getStyles(containerStyles, textStyles, mathContainerStyles);
-
   return `
-		<!DOCTYPE html>		
+		<!DOCTYPE html>
 		<html>
 			<head>
 				${setStyles}
@@ -92,30 +89,30 @@ const getStyles = (
   mathContainerStyles: string
 ) => {
   return `
-			<style>
-				#container {
-					width: 100% !important;
-					background-color: transparent !important;
-					${containerStyles}
-				}
+    <style>
+      #container {
+        width: 100% !important;
+        background-color: transparent !important;
+        ${containerStyles}
+      }
 
-				p, span, div {
-					background-color: transparent !important;
-					color: black !important;
-					font-size: 30px !important;
-					${textStyles}
-				}
+      p, span, div {
+        background-color: transparent !important;
+        color: black !important;
+        font-size: 30px !important;
+        ${textStyles}
+      }
 
-				.katex {
-					max-width: 100%;
-					white-space: normal !important;
-					overflow-wrap: break-word !important;
-					flex-wrap: wrap !important;
-					background-color: transparent !important;
-					${mathContainerStyles}
-				}
-			</style>
-		  `;
+      .katex {
+        max-width: 100%;
+        white-space: normal !important;
+        overflow-wrap: break-word !important;
+        flex-wrap: wrap !important;
+        background-color: transparent !important;
+        ${mathContainerStyles}
+      }
+    </style>
+  `;
 };
 
-export default MathJax;
+export default LatexRenderer;

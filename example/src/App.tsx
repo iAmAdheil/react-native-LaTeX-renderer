@@ -1,19 +1,24 @@
-// import MathJax from '@ibeginnernoob/react-native-katex';
-import { Text, View } from 'react-native';
+import { Latex } from '../../src/index';
+import { Text, View, StyleSheet } from 'react-native';
 
 export default function HomeScreen() {
   return (
-    <View style={{ backgroundColor: 'white', flex: 1, marginTop: 100 }}>
-      <Text style={{ fontSize: 40 }}>Demo App</Text>
-      {/* <MathJax
-        content="This is me using latex inside webshells $$ \frac{1}{2} $$"
-        customStyles={{
-          fontSize: 50,
-          backgroundColor: 'red',
-          mathBgColor: 'blue',
-          textColor: 'green',
-        }}
-      /> */}
+    <View style={styles.container}>
+      <Text style={styles.title}>Demo App</Text>
+      <Latex content="This is me using latex inside webshells $$ \frac{1}{2} $$" />
     </View>
   );
 }
+
+const styles = StyleSheet.create({
+  container: {
+    flex: 1,
+    backgroundColor: '#fff',
+    alignItems: 'center',
+    justifyContent: 'center',
+  },
+  title: {
+    fontSize: 40,
+    marginBottom: 20,
+  },
+});

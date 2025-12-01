@@ -1,3 +1,3 @@
-import MathJax from './katex';
+import Latex from './katex';
 
-export default MathJax;
+export { Latex };
