@@ -1,15 +1,34 @@
 import { KaTeXAutoHeightWebView, createKaTeXHTML } from '../../src/index';
-import { Text, View, StyleSheet } from 'react-native';
+import { View, StyleSheet } from 'react-native';
+
+const testing = `
+This is a test latex equation:
+$$
+I(\\lambda)
+=
+\\int_0^{\\infty} e^{-\\lambda x^2}\\cos(x)\\,dx
+\\sim
+\\sum_{k=0}^{\\infty}
+\\frac{(-1)^k (2k)!}{2^{2k+1} k!}
+\\lambda^{-k-\\tfrac12}
+$$
+End of test latex equation.
+`;
 
 export default function HomeScreen() {
   const src = createKaTeXHTML(
-    'This is me using latex inside webshells $$ \\frac{1}{2} $$ This is me using latex inside webshells $$ \\frac{1}{2} $$',
-    'font-size: 50px !important;'
+    testing,
+    {
+      'width': '50%',
+      'font-size': '40px',
+    },
+    {
+      color: 'blue',
+    }
   );
 
   return (
     <View style={styles.container}>
-      <Text style={styles.title}>Demo App</Text>
       <KaTeXAutoHeightWebView
         source={src}
         onHeightChange={(height) => console.log('New height:', height)}
@@ -22,12 +41,6 @@ const styles = StyleSheet.create({
   container: {
     flex: 1,
     backgroundColor: '#fff',
-    alignItems: 'center',
-    justifyContent: 'center',
     paddingVertical: 80,
-  },
-  title: {
-    fontSize: 40,
-    marginBottom: 20,
   },
 });

@@ -71,6 +71,7 @@
     "@types/jest": "^29.5.14",
     "@types/react": "^19.1.12",
     "@typescript-eslint/eslint-plugin": "^8.43.0",
+    "@typescript-eslint/parser": "latest",
     "commitlint": "^19.8.1",
     "del-cli": "^6.0.0",
     "eslint": "^9.35.0",
