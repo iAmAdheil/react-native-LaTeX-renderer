@@ -9,12 +9,13 @@ import makeWebshell, {
 const Webshell = makeWebshell(WebView, new HandleHTMLDimensionsFeature());
 export type WebshellProps = ComponentProps<typeof Webshell>;
 const globalStyles = StyleSheet.create({
-  webview: { backgroundColor: 'transparent' },
+  webview: { backgroundColor: 'transparent', minHeight: 1 },
 });
 
 function MinimalAutoheightWebView(webshellProps: WebshellProps) {
   const { autoheightWebshellProps } = useAutoheight({
     webshellProps,
+    initialHeight: 40,
   });
   return <Webshell {...autoheightWebshellProps} />;
 }
