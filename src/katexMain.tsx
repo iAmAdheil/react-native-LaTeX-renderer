@@ -289,7 +289,7 @@ const createKaTeXHTML = (
           #container {
             width: 100% !important;            
             box-sizing: border-box !important;
-            background-color: transparent !important            
+            background-color: transparent !important;
           }
           
           /* Ensure KaTeX elements are properly contained */
@@ -360,7 +360,7 @@ const formatContainerStyles = (s?: InnerContainerMap) => {
   };
 
   if (!s || typeof s !== 'object' || Array.isArray(s)) {
-    return '';
+    return {};
   }
 
   Object.entries(s).forEach(([key, value]) => {
@@ -378,7 +378,7 @@ const formatLatexStyles = (s?: LatexStyleMap) => {
   };
 
   if (!s || typeof s !== 'object' || Array.isArray(s)) {
-    return '';
+    return {};
   }
 
   Object.entries(s).forEach(([key, value]) => {
