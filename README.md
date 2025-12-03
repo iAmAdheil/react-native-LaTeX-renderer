@@ -81,6 +81,10 @@ const styles = StyleSheet.create({
 });
 ```
 
+### Example Result
+
+<img src="https://res.cloudinary.com/dzaj1xdgz/image/upload/v1764758631/Screenshot_2025-12-03_at_4.12.57_PM_avq3ll.png" alt="Example Result" width="300" />
+
 ## API Reference
 
 ### `createKaTeXHTML(content, containerStyles, latexStyles)`
