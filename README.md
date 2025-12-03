@@ -1,64 +1,117 @@
-<div>
+# React Native Latex Renderer
 
-<h1>React Native <a href="https://katex.org/">
-  <picture>
-    <source media="(prefers-color-scheme: dark)" srcset="https://katex.org/img/katex-logo.svg">
-    <img alt="KaTeX" width=130 src="https://katex.org/img/katex-logo-black.svg">
-  </picture>
-</a></h1>
-</div>
+A lightweight, auto-resizing LaTeX renderer for React Native using [KaTeX](https://katex.org/).
 
-Render Math Latex in React Native using Katex with Webshell
+## Features
+
+*   **Auto-resizing**: Automatically adjusts height based on content.
+*   **KaTeX Support**: Fast and reliable math rendering.
+*   **Customizable**: Extensive styling options for container, text, and math elements.
+*   **TypeScript Support**: Fully typed for better development experience.
 
 ## Installation
 
 ```sh
-npm install @adheil_gupta/react-native-katex
+npm install @adheil_gupta/react-native-latex-renderer
 ```
 
 ## Usage
 
-Pass Content as a string with math equations wrapped with -
+Pass content as a string with math equations wrapped with:
 
-- \$ ... \$ -> to display inline math
-- \$$ ... \$$ -> to display the equation on a new line
+- `$ ... $` -> to display inline math
+- `$$ ... $$` -> to display the equation on a new line
 
-## The Results looks something like:
-
-<img src="https://res.cloudinary.com/dzaj1xdgz/image/upload/v1757872049/eg_kcgxvr.jpg" width="400">
-
-## Styling
-
-<img src="https://res.cloudinary.com/dzaj1xdgz/image/upload/v1757872048/eg2_z7tbzm.png" width="400">
-
-- containerStyles - style the outer div
-- textStyles - text styling
-- mathContainerStyles - style the inner divs(green border that render the math equations)
-
-```
-	eg. pass containerStyles as ->
-
-	"
-		background-color: red !important;
-		padding-left: 40px !important;
-		padding-right: 40px !important;
-	"
-```
-
-## Simple Example
+### Simple Example
 
 ```js
-import MathJax from '@adhei_gupta/react-native-katex';
-import { Text, View } from 'react-native';
+import { KaTeXAutoHeightWebView, createKaTeXHTML } from '@adheil_gupta/react-native-latex-renderer';
+import { View, StyleSheet } from 'react-native';
+
+const testing = `
+  This is a test latex equation:
+  $$
+  I(\\lambda)
+  =
+  \\int_0^{\\infty} e^{-\\lambda x^2}\\cos(x)\\,dx
+  \\sim
+  \\sum_{k=0}^{\\infty}
+  \\frac{(-1)^k (2k)!}{2^{2k+1} k!}
+  \\lambda^{-k-\\tfrac12}
+  $$
+  End of test latex equation.
+`;
 
 export default function HomeScreen() {
+  const src = createKaTeXHTML(
+    testing,
+    // HTML Container Styles
+    {
+      'font-size': '18px',
+      'color': '#333',
+      'padding': '16px',
+    },
+    // LaTeX Specific Styles
+    {
+      'color': 'blue',
+      'font-size': '1.2em',
+    }
+  );
+
   return (
-    <View style={{ backgroundColor: 'white', flex: 1 }}>
-      <MathJax content="Inline Equaton - $ \sum_{i=1}^n i = frac{(n(n+1))}^{2} $ New Line Equation - $$ \sum_{i=1}^n i = frac{(n(n+1))}^{2} $$" />
+    <View style={styles.container}>
+      <KaTeXAutoHeightWebView
+        source={src}
+        onHeightChange={(height) => console.log('New height:', height)}
+        containerStyle={{
+          width: '100%',
+          backgroundColor: '#f5f5f5',
+        }}
+      />
     </View>
   );
 }
+
+const styles = StyleSheet.create({
+  container: {
+    flex: 1,
+    backgroundColor: '#fff',
+    paddingVertical: 50,
+  },
+});
 ```
+
+## API Reference
+
+### `createKaTeXHTML(content, containerStyles, latexStyles)`
+
+Generates the HTML source string for the WebView.
+
+| Parameter | Type | Description |
+|---|---|---|
+| `content` | `string` | The text content containing LaTeX delimiters. |
+| `containerStyles` | `object` | Styles for the HTML container (font, padding, color, etc.). |
+| `latexStyles` | `object` | Styles specifically applied to KaTeX elements. |
+
+### `KaTeXAutoHeightWebView`
+
+The main component that renders the LaTeX content.
+
+| Prop | Type | Default | Description |
+|---|---|---|---|
+| `source` | `string` | - | The HTML string returned by `createKaTeXHTML`. |
+| `onHeightChange` | `(height: number) => void` | - | Callback fired when content height changes. |
+| `minHeight` | `number` | `50` | Minimum height of the WebView. |
+| `containerStyle` | `object` | - | Styles for the outer React Native View. |
+| `...props` | `WebViewProps` | - | Any other props accepted by `react-native-webview`. |
+
+## Styling
+
+You can style the component at three levels:
+
+1.  **React Native Container**: Using the `containerStyle` prop on `<KaTeXAutoHeightWebView />`.
+2.  **HTML Content**: Using the second argument of `createKaTeXHTML`. Supports standard CSS properties like `font-size`, `color`, `padding`, `line-height`.
+3.  **LaTeX Elements**: Using the third argument of `createKaTeXHTML`. Styles applied directly to `.katex` elements.
 
 ## Contributing
 
@@ -69,7 +122,3 @@ export default function HomeScreen() {
 ## License
 
 MIT
-
----
-
-Made with [create-react-native-library](https://github.com/callstack/react-native-builder-bob)

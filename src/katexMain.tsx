@@ -21,7 +21,12 @@ type InnerContainerStyle =
   | 'background-color';
 type InnerContainerMap = Partial<Record<InnerContainerStyle, string>>;
 
-type ContainerStyle = 'padding' | 'width' | 'backgroundColor';
+type ContainerStyle =
+  | 'padding'
+  | 'width'
+  | 'backgroundColor'
+  | 'borderWidth'
+  | 'borderColor';
 type ContainerMap = Partial<Record<ContainerStyle, string>>;
 
 /**
@@ -201,7 +206,28 @@ const KaTeXAutoHeightWebView = ({
   );
 
   return (
-    <View style={[styles.container, { height }, containerStyle]}>
+    <View
+      style={[
+        styles.container,
+        { height },
+        containerStyle &&
+          Object.entries(containerStyle).reduce(
+            (acc: Record<string, any>, [key, value]) => {
+              if (
+                typeof value === 'string' &&
+                key.includes('borderWidth') &&
+                !isNaN(parseFloat(value))
+              ) {
+                acc[key] = parseFloat(value);
+              } else {
+                acc[key] = value;
+              }
+              return acc;
+            },
+            {} as Record<string, any>
+          ),
+      ]}
+    >
       <WebView
         ref={webViewRef}
         source={{ html: source }}
@@ -250,28 +276,14 @@ const createKaTeXHTML = (
           }
 
           #outer-wrapper {
-            width: 100% !important;
-            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
-            font-size: 16px !important;
-            line-height: 1.6 !important;
-            padding: 8px !important;
-            background-color: transparent !important;
-            color: black !important;
-
-            ${
-              containerStyles &&
-              typeof containerStyles === 'object' &&
-              !Array.isArray(containerStyles)
-                ? Object.entries(containerStyles)
-                    .map(([key, value]) => {
-                      const cssKey = key
-                        .replace(/([a-z0-9]|(?=[A-Z]))([A-Z])/g, '$1-$2')
-                        .toLowerCase();
-                      return `${cssKey}: ${value};`;
-                    })
-                    .join('\n')
-                : ''
-            }
+            ${Object.entries(formatContainerStyles(containerStyles))
+              .map(([key, value]) => {
+                const cssKey = key
+                  .replace(/([a-z0-9]|(?=[A-Z]))([A-Z])/g, '$1-$2')
+                  .toLowerCase();
+                return `${cssKey}: ${value};`;
+              })
+              .join('\n')}
           }
 
           #container {
@@ -292,28 +304,20 @@ const createKaTeXHTML = (
             overflow-x: auto !important;
           }
           
-          .katex {
-            font-size: 1em !important;
-            line-height: 2 !important;
-            max-width: 100% !important;
-            white-space: normal !important;
-            overflow-wrap: break-word !important;
+          .katex {            
             flex-wrap: wrap !important;
+            overflow-wrap: break-word !important;            
+            max-width: 100% !important;
+            white-space: normal !important;            
 
-            ${
-              latexStyles &&
-              typeof latexStyles === 'object' &&
-              !Array.isArray(latexStyles)
-                ? Object.entries(latexStyles)
-                    .map(([key, value]) => {
-                      const cssKey = key
-                        .replace(/([a-z0-9]|(?=[A-Z]))([A-Z])/g, '$1-$2')
-                        .toLowerCase();
-                      return `${cssKey}: ${value};`;
-                    })
-                    .join('\n')
-                : ''
-            }
+            ${Object.entries(formatLatexStyles(latexStyles))
+              .map(([key, value]) => {
+                const cssKey = key
+                  .replace(/([a-z0-9]|(?=[A-Z]))([A-Z])/g, '$1-$2')
+                  .toLowerCase();
+                return `${cssKey}: ${value};`;
+              })
+              .join('\n')}
           }
         </style>
         <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.16.22/dist/katex.min.css" integrity="sha384-5TcZemv2l/9On385z///+d7MSYlvIEw9FuZTIdZ14vJLqWphw7e7ZPuOiCHJcFCP" crossorigin="anonymous">
@@ -342,6 +346,46 @@ const createKaTeXHTML = (
       </body>
     </html>
   `;
+};
+
+const formatContainerStyles = (s?: InnerContainerMap) => {
+  let initialStyles = {
+    'font-family':
+      '-apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif',
+    'font-size': '16px',
+    'line-height': '1.6',
+    'padding': '8px',
+    'background-color': 'transparent',
+    'color': 'black',
+  };
+
+  if (!s || typeof s !== 'object' || Array.isArray(s)) {
+    return '';
+  }
+
+  Object.entries(s).forEach(([key, value]) => {
+    initialStyles[key as keyof typeof initialStyles] = value;
+  });
+
+  return initialStyles;
+};
+
+const formatLatexStyles = (s?: LatexStyleMap) => {
+  let initialStyles = {
+    'color': 'black',
+    'font-size': '1em',
+    'line-height': '2',
+  };
+
+  if (!s || typeof s !== 'object' || Array.isArray(s)) {
+    return '';
+  }
+
+  Object.entries(s).forEach(([key, value]) => {
+    initialStyles[key as keyof typeof initialStyles] = value;
+  });
+
+  return initialStyles;
 };
 
 // Export for use

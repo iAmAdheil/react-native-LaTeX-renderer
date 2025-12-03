@@ -1,7 +1,7 @@
 {
-  "name": "@adheil_gupta/react-native-katex",
-  "version": "0.1.3",
-  "description": "Render Math Equations inside react native using katex inside webshell for dynamic height",
+  "name": "@adheil_gupta/react-native-latex-renderer",
+  "version": "1.0.0",
+  "description": "A lightweight, auto-resizing LaTeX renderer for React Native using KaTeX.",
   "main": "./lib/module/index.js",
   "types": "./lib/typescript/src/index.d.ts",
   "exports": {
@@ -43,7 +43,17 @@
   "keywords": [
     "react-native",
     "ios",
-    "android"
+    "android",
+    "latex",
+    "katex",
+    "math",
+    "mathematics",
+    "formula",
+    "equation",
+    "renderer",
+    "webview",
+    "autoheight",
+    "typesetting"
   ],
   "repository": {
     "type": "git",

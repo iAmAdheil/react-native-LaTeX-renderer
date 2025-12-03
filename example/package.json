@@ -9,7 +9,7 @@
     "web": "expo start --web"
   },
   "dependencies": {
-    "@adheil_gupta/react-native-katex": "workspace:^",
+    "@adheil_gupta/react-native-latex-renderer": "workspace:^",
     "@expo/metro-runtime": "~6.1.1",
     "@formidable-webview/webshell": "^2.6.0",
     "expo": "~54.0.7",
