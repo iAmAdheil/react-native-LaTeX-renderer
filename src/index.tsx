@@ -1,3 +1,3 @@
-import MathJax from './katex';
+import { KaTeXAutoHeightWebView, createKaTeXHTML } from './katexMain';
 
-export default MathJax;
+export { KaTeXAutoHeightWebView, createKaTeXHTML };
