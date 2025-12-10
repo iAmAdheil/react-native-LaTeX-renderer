@@ -26,7 +26,7 @@ Pass content as a string with math equations wrapped with:
 
 ```js
 import { KaTeXAutoHeightWebView, createKaTeXHTML } from '@adheil_gupta/react-native-latex-renderer';
-import { View, StyleSheet } from 'react-native';
+import { StyleSheet, View } from 'react-native';
 
 const testing = `
   This is a test latex equation:
@@ -47,14 +47,17 @@ export default function HomeScreen() {
     testing,
     // HTML Container Styles
     {
+      width: '80%',
+      'padding': '15px',
       'font-size': '18px',
-      'color': '#333',
-      'padding': '16px',
+      'color': 'pink',      
+      'background-color': 'purple',      
     },
     // LaTeX Specific Styles
     {
-      'color': 'blue',
-      'font-size': '1.2em',
+      border: '2px solid red',
+      'color': 'lawngreen',
+      'background-color': 'blue',      
     }
   );
 
@@ -65,7 +68,7 @@ export default function HomeScreen() {
         onHeightChange={(height) => console.log('New height:', height)}
         containerStyle={{
           width: '100%',
-          backgroundColor: '#f5f5f5',
+          backgroundColor: 'yellow',
         }}
       />
     </View>
@@ -76,14 +79,14 @@ const styles = StyleSheet.create({
   container: {
     flex: 1,
     backgroundColor: '#fff',
-    paddingVertical: 50,
+    paddingVertical: 100,
   },
 });
 ```
 
 ### Example Result
 
-<img src="https://res.cloudinary.com/dzaj1xdgz/image/upload/v1764758631/Screenshot_2025-12-03_at_4.12.57_PM_avq3ll.png" alt="Example Result" width="300" />
+<img src="https://res.cloudinary.com/dzaj1xdgz/image/upload/v1765365968/Screenshot_2025-12-10_at_4.52.50_PM_dfmgij.png" alt="Example Result" width="300" />
 
 ## API Reference
 

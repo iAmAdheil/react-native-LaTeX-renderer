@@ -41,7 +41,12 @@
     "release": "release-it --only-version"
   },
   "keywords": [
+    "react-native-latex-renderer",
     "react-native",
+    "react-native-katex",
+    "react-native-latex",
+    "react-native-math",
+    "react-native-math-renderer",
     "ios",
     "android",
     "latex",
