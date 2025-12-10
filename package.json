@@ -1,6 +1,6 @@
 {
   "name": "@adheil_gupta/react-native-latex-renderer",
-  "version": "1.0.0",
+  "version": "1.0.1",
   "description": "A lightweight, auto-resizing LaTeX renderer for React Native using KaTeX.",
   "main": "./lib/module/index.js",
   "types": "./lib/typescript/src/index.d.ts",
