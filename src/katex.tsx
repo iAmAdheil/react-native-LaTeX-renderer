@@ -1,6 +1,7 @@
 import { useState, useRef, useCallback } from 'react';
 import { View, StyleSheet } from 'react-native';
 import { WebView } from 'react-native-webview';
+import { KATEX_CSS, KATEX_JS, KATEX_AUTO_RENDER_JS } from './katex-assets';
 
 type LatexStyle =
   | 'border'
@@ -275,9 +276,9 @@ const createKaTeXHTML = (
               .join('\n')}
           }
         </style>
-        <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.16.22/dist/katex.min.css" integrity="sha384-5TcZemv2l/9On385z///+d7MSYlvIEw9FuZTIdZ14vJLqWphw7e7ZPuOiCHJcFCP" crossorigin="anonymous">
-        <script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.22/dist/katex.min.js" integrity="sha384-cMkvdD8LoxVzGF/RPUKAcvmm49FQ0oxwDF3BGKtDXcEc+T1b2N+teh/OJfpU0jr6" crossorigin="anonymous"></script>
-        <script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.22/dist/contrib/auto-render.min.js" integrity="sha384-hCXGrW6PitJEwbkoStFjeJxv+fSOOQKOPbJxSfM6G5sWZjAyWhXiTIIAmQqnlLlh" crossorigin="anonymous"></script>
+        <style>${KATEX_CSS}</style>
+        <script>${KATEX_JS}</script>
+        <script>${KATEX_AUTO_RENDER_JS}</script>
         <script>
           document.addEventListener("DOMContentLoaded", function() {
             renderMathInElement(document.body, {

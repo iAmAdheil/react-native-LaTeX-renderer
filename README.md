@@ -1,11 +1,32 @@
 # React Native Latex Renderer
 
-A lightweight, auto-resizing LaTeX renderer for React Native using [KaTeX](https://katex.org/).
+A lightweight, offline-capable, auto-resizing LaTeX renderer for React Native using [KaTeX](https://katex.org/). No native modules. No internet required.
+
+## When to use this package
+
+This package is the right choice when:
+
+- You are using **Expo managed workflow** and cannot add native modules
+- You are on the **Old Architecture** and cannot use Fabric/TurboModules
+- You need **zero native setup** — no `pod install`, no Kotlin/Swift, no build configuration
+- You are rendering **standalone LaTeX equations** (not full markdown documents)
+
+### When to use something else instead
+
+If your use case goes beyond standalone LaTeX, better-suited libraries exist:
+
+| Need | Recommended library |
+|---|---|
+| Markdown + math (headers, bold, tables, code blocks) | [react-native-enriched-markdown](https://github.com/software-mansion-labs/react-native-enriched-markdown) by Software Mansion — fully native, no WebView, New Architecture |
+| Markdown + math with streaming (LLM/SSE outputs) | [react-native-nitro-markdown](https://github.com/JoaoPauloCMarra/react-native-nitro-markdown) — native C++ parser, built-in streaming support |
+
+Both of those libraries require the New Architecture and native module setup. If that is not a constraint for you, they will give you better performance and broader feature coverage than this package.
 
 ## Features
 
+*   **Offline**: KaTeX is fully bundled — no CDN, no network required.
 *   **Auto-resizing**: Automatically adjusts height based on content.
-*   **KaTeX Support**: Fast and reliable math rendering.
+*   **Zero native modules**: Works in Expo managed workflow and Old Architecture projects out of the box.
 *   **Customizable**: Extensive styling options for container, text, and math elements.
 *   **TypeScript Support**: Fully typed for better development experience.
 
@@ -18,6 +39,8 @@ npm install @adheil_gupta/react-native-latex-renderer react-native-webview
 # yarn
 yarn add @adheil_gupta/react-native-latex-renderer react-native-webview
 ```
+
+KaTeX is bundled inside the package — no CDN links, no additional setup needed.
 
 ## Usage
 
