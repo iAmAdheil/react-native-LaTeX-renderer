@@ -1,19 +1,46 @@
 # React Native Latex Renderer
 
-A lightweight, auto-resizing LaTeX renderer for React Native using [KaTeX](https://katex.org/).
+A lightweight, offline-capable, auto-resizing LaTeX renderer for React Native using [KaTeX](https://katex.org/). No native modules. No internet required.
+
+## When to use this package
+
+This package is the right choice when:
+
+- You are using **Expo managed workflow** and cannot add native modules
+- You are on the **Old Architecture** and cannot use Fabric/TurboModules
+- You need **zero native setup** — no `pod install`, no Kotlin/Swift, no build configuration
+- You are rendering **standalone LaTeX equations** (not full markdown documents)
+
+### When to use something else instead
+
+If your use case goes beyond standalone LaTeX, better-suited libraries exist:
+
+| Need | Recommended library |
+|---|---|
+| Markdown + math (headers, bold, tables, code blocks) | [react-native-enriched-markdown](https://github.com/software-mansion-labs/react-native-enriched-markdown) by Software Mansion — fully native, no WebView, New Architecture |
+| Markdown + math with streaming (LLM/SSE outputs) | [react-native-nitro-markdown](https://github.com/JoaoPauloCMarra/react-native-nitro-markdown) — native C++ parser, built-in streaming support |
+
+Both of those libraries require the New Architecture and native module setup. If that is not a constraint for you, they will give you better performance and broader feature coverage than this package.
 
 ## Features
 
+*   **Offline**: KaTeX is fully bundled — no CDN, no network required.
 *   **Auto-resizing**: Automatically adjusts height based on content.
-*   **KaTeX Support**: Fast and reliable math rendering.
+*   **Zero native modules**: Works in Expo managed workflow and Old Architecture projects out of the box.
 *   **Customizable**: Extensive styling options for container, text, and math elements.
 *   **TypeScript Support**: Fully typed for better development experience.
 
 ## Installation
 
 ```sh
-npm install @adheil_gupta/react-native-latex-renderer
+# npm
+npm install @adheil_gupta/react-native-latex-renderer react-native-webview
+
+# yarn
+yarn add @adheil_gupta/react-native-latex-renderer react-native-webview
 ```
+
+KaTeX is bundled inside the package — no CDN links, no additional setup needed.
 
 ## Usage
 
@@ -26,9 +53,9 @@ Pass content as a string with math equations wrapped with:
 
 ```js
 import { KaTeXAutoHeightWebView, createKaTeXHTML } from '@adheil_gupta/react-native-latex-renderer';
-import { StyleSheet, View } from 'react-native';
+import { View, StyleSheet } from 'react-native';
 
-const testing = `
+const testString = `
   This is a test latex equation:
   $$
   I(\\lambda)
@@ -44,20 +71,18 @@ const testing = `
 
 export default function HomeScreen() {
   const src = createKaTeXHTML(
-    testing,
-    // HTML Container Styles
+    testString,
     {
-      width: '80%',
-      'padding': '15px',
-      'font-size': '18px',
-      'color': 'pink',      
-      'background-color': 'purple',      
+      'width': '75%',
+      'font-size': '15px',
+      'color': 'pink',
+      'background-color': 'green',
+      'border': '1px solid black',
     },
-    // LaTeX Specific Styles
     {
-      border: '2px solid red',
-      'color': 'lawngreen',
-      'background-color': 'blue',      
+      'color': 'white',
+      'background-color': 'purple',
+      'border': '1px solid red',
     }
   );
 
@@ -69,6 +94,8 @@ export default function HomeScreen() {
         containerStyle={{
           width: '100%',
           backgroundColor: 'yellow',
+          borderWidth: '1',
+          borderColor: 'orange',
         }}
       />
     </View>
@@ -79,7 +106,7 @@ const styles = StyleSheet.create({
   container: {
     flex: 1,
     backgroundColor: '#fff',
-    paddingVertical: 100,
+    paddingVertical: 80,
   },
 });
 ```

@@ -1,3 +1,3 @@
-import { KaTeXAutoHeightWebView, createKaTeXHTML } from './katexMain';
+import { KaTeXAutoHeightWebView, createKaTeXHTML } from './katex';
 
 export { KaTeXAutoHeightWebView, createKaTeXHTML };
