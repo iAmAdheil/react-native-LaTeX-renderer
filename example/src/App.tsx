@@ -1,7 +1,7 @@
 import { KaTeXAutoHeightWebView, createKaTeXHTML } from '../../src/index';
 import { View, StyleSheet } from 'react-native';
 
-const testing = `
+const testString = `
   This is a test latex equation:
   $$
   I(\\lambda)
@@ -17,7 +17,7 @@ const testing = `
 
 export default function HomeScreen() {
   const src = createKaTeXHTML(
-    testing,
+    testString,
     {
       'width': '75%',
       'font-size': '15px',

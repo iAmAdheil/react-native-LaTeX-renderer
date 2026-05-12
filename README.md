@@ -12,7 +12,11 @@ A lightweight, auto-resizing LaTeX renderer for React Native using [KaTeX](https
 ## Installation
 
 ```sh
-npm install @adheil_gupta/react-native-latex-renderer
+# npm
+npm install @adheil_gupta/react-native-latex-renderer react-native-webview
+
+# yarn
+yarn add @adheil_gupta/react-native-latex-renderer react-native-webview
 ```
 
 ## Usage
@@ -26,9 +30,9 @@ Pass content as a string with math equations wrapped with:
 
 ```js
 import { KaTeXAutoHeightWebView, createKaTeXHTML } from '@adheil_gupta/react-native-latex-renderer';
-import { StyleSheet, View } from 'react-native';
+import { View, StyleSheet } from 'react-native';
 
-const testing = `
+const testString = `
   This is a test latex equation:
   $$
   I(\\lambda)
@@ -44,20 +48,18 @@ const testing = `
 
 export default function HomeScreen() {
   const src = createKaTeXHTML(
-    testing,
-    // HTML Container Styles
+    testString,
     {
-      width: '80%',
-      'padding': '15px',
-      'font-size': '18px',
-      'color': 'pink',      
-      'background-color': 'purple',      
+      'width': '75%',
+      'font-size': '15px',
+      'color': 'pink',
+      'background-color': 'green',
+      'border': '1px solid black',
     },
-    // LaTeX Specific Styles
     {
-      border: '2px solid red',
-      'color': 'lawngreen',
-      'background-color': 'blue',      
+      'color': 'white',
+      'background-color': 'purple',
+      'border': '1px solid red',
     }
   );
 
@@ -69,6 +71,8 @@ export default function HomeScreen() {
         containerStyle={{
           width: '100%',
           backgroundColor: 'yellow',
+          borderWidth: '1',
+          borderColor: 'orange',
         }}
       />
     </View>
@@ -79,7 +83,7 @@ const styles = StyleSheet.create({
   container: {
     flex: 1,
     backgroundColor: '#fff',
-    paddingVertical: 100,
+    paddingVertical: 80,
   },
 });
 ```
