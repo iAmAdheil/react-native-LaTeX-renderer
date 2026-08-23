@@ -63,14 +63,14 @@
   ],
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/ibeginnernoob/react-native-latex.git"
+    "url": "git+https://github.com/iAmAdheil/react-native-LaTeX-renderer.git"
   },
-  "author": "ibeginnernoob <adheilgupta@gmail.com> (https://github.com/ibeginnernoob)",
+  "author": "iAmAdheil <adheilgupta@gmail.com> (https://github.com/iAmAdheil)",
   "license": "MIT",
   "bugs": {
-    "url": "https://github.com/ibeginnernoob/react-native-latex/issues"
+    "url": "https://github.com/iAmAdheil/react-native-LaTeX-renderer/issues"
   },
-  "homepage": "https://github.com/ibeginnernoob/react-native-latex#readme",
+  "homepage": "https://github.com/iAmAdheil/react-native-LaTeX-renderer#readme",
   "publishConfig": {
     "registry": "https://registry.npmjs.org/"
   },
