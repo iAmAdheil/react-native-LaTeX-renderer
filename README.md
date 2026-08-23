@@ -1,5 +1,7 @@
 # React Native Latex Renderer
 
+⭐ If this package helps you, please [star the repo on GitHub](https://github.com/iAmAdheil/react-native-LaTeX-renderer) — it helps others find it.
+
 A lightweight, offline-capable, auto-resizing LaTeX renderer for React Native using [KaTeX](https://katex.org/). No native modules. No internet required.
 
 ## When to use this package
